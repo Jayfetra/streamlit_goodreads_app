@@ -11,6 +11,8 @@ from pandas import json_normalize
 from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_lottie import st_lottie
 
+
+
 st.set_page_config(page_title="Goodreads Analysis App", layout="wide")
 
 
@@ -20,6 +22,7 @@ def load_lottieurl(url: str):
         return None
     return r.json()
 
+# st.write(st.secrets)
 
 lottie_book = load_lottieurl("https://assets4.lottiefiles.com/temp/lf20_aKAfIn.json")
 st_lottie(lottie_book, speed=1, height=200, key="initial")
@@ -79,7 +82,9 @@ with row2_1:
     )
 user_id = "".join(filter(lambda i: i.isdigit(), user_input))
 user_name = user_input.split(user_id, 1)[1].split("-", 1)[1].replace("-", " ")
-gr_key = st.secrets["goodreads_key"]
+# gr_key = st.secrets["goodreads_key"]
+
+# gr_key = st.secrets["1234"]
 
 
 @st.cache_data

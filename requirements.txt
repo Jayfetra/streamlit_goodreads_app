@@ -1,11 +1,11 @@
-gender-guesser==0.4.0
+gender-guesser
 matplotlib
 streamlit
-numpy==1.23.5
+numpy
 pandas
 xmltodict
 urllib3
-seaborn>=0.11.0
+seaborn
 streamlit-lottie
 plotly
-streamlit-extras>=0.2.4
+streamlit-extras
