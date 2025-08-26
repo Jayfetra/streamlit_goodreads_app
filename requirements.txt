@@ -9,3 +9,12 @@ seaborn
 streamlit-lottie
 plotly
 streamlit-extras
+chess
+io
+pprint
+openai
+request
+st_javascript
+timezone
+datetime
+pytz
