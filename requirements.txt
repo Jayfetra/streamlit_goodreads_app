@@ -12,5 +12,6 @@ streamlit-extras
 chess
 openai
 requests
-st_javascript
+streamlit-javascript
+streamlit-js-eval
 pytz
