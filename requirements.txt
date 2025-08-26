@@ -15,3 +15,7 @@ requests
 streamlit-javascript
 streamlit-js-eval
 pytz
+matplotlib
+pymysql
+supabase
+openpyxl
