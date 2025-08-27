@@ -16,7 +16,6 @@ from datetime import datetime
 from pytz import timezone
 import pytz
 from supabase import create_client, Client
-import pytz
 
 
 
@@ -88,15 +87,26 @@ def opening_database():
     dir_list = os.listdir(cwd)
     dir_list
     # Read the TSV files into DataFrames
-    a_df = pd.read_csv('a.tsv', sep='\t')
-    b_df = pd.read_csv('b.tsv', sep='\t')
-    c_df = pd.read_csv('c.tsv', sep='\t')
-    d_df = pd.read_csv('d.tsv', sep='\t')
-    e_df = pd.read_csv('e.tsv', sep='\t')
+    # a_df = pd.read_csv('a.tsv', sep='\t')
+    # b_df = pd.read_csv('b.tsv', sep='\t')
+    # c_df = pd.read_csv('c.tsv', sep='\t')
+    # d_df = pd.read_csv('d.tsv', sep='\t')
+    # e_df = pd.read_csv('e.tsv', sep='\t')
 
+    data_a = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/a.tsv"
+    data_b = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/b.tsv"
+    data_c = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/c.tsv"
+    data_d = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/d.tsv"
+    data_e = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/e.tsv"
+
+    df_a = pd.read_csv(data_a, sep="\t")
+    df_b = pd.read_csv(data_b, sep="\t")
+    df_c = pd.read_csv(data_c, sep="\t")
+    df_d = pd.read_csv(data_d, sep="\t")
+    df_e = pd.read_csv(data_e, sep="\t")
 
     # Combine the DataFrames
-    chess_opening_database = pd.concat([a_df, b_df, c_df, d_df, e_df], ignore_index=True)
+    chess_opening_database = pd.concat([df_a, df_b, df_c, df_d, df_e], ignore_index=True)
     chess_moves = []
     # Iterate over the rows of the combined DataFrame
     for index, row in chess_opening_database.iterrows():
