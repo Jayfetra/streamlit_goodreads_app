@@ -28,7 +28,7 @@ from chess_com_download import prepare_game_data
 from chess_com_download import insert_to_supabase
 
 
-from supabase import create_client, Client
+# from supabase import create_client, Client
 from datetime import datetime
 import pytz
 

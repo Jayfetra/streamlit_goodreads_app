@@ -78,26 +78,12 @@ def elo_category(elo_opponent, your_elo):
         return 'Stronger'
 
 def opening_database():
-    import os
 
-    chess_opening_dir = f'/Users/jayson.fetra/Documents/c_root/hobby/chess-openings-master'
-    os.chdir(chess_opening_dir)
-
-    cwd = os.getcwd()
-    dir_list = os.listdir(cwd)
-    dir_list
-    # Read the TSV files into DataFrames
-    # a_df = pd.read_csv('a.tsv', sep='\t')
-    # b_df = pd.read_csv('b.tsv', sep='\t')
-    # c_df = pd.read_csv('c.tsv', sep='\t')
-    # d_df = pd.read_csv('d.tsv', sep='\t')
-    # e_df = pd.read_csv('e.tsv', sep='\t')
-
-    data_a = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/a.tsv"
-    data_b = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/b.tsv"
-    data_c = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/c.tsv"
-    data_d = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/d.tsv"
-    data_e = "https://github.com/Jayfetra/streamlit_goodreads_app/blob/master/chess-openings-master/e.tsv"
+    data_a = "https://raw.githubusercontent.com/Jayfetra/streamlit_goodreads_app/refs/heads/master/chess-openings-master/a.tsv"
+    data_b = "https://raw.githubusercontent.com/Jayfetra/streamlit_goodreads_app/refs/heads/master/chess-openings-master/b.tsv"
+    data_c = "https://raw.githubusercontent.com/Jayfetra/streamlit_goodreads_app/refs/heads/master/chess-openings-master/c.tsv"
+    data_d = "https://raw.githubusercontent.com/Jayfetra/streamlit_goodreads_app/refs/heads/master/chess-openings-master/d.tsv"
+    data_e = "https://raw.githubusercontent.com/Jayfetra/streamlit_goodreads_app/refs/heads/master/chess-openings-master/e.tsv"
 
     df_a = pd.read_csv(data_a, sep="\t")
     df_b = pd.read_csv(data_b, sep="\t")
