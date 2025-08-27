@@ -379,10 +379,11 @@ if st.session_state.analyze_clicked and chesscom_user_id:
 
         st.header("8. AI-Powered Chess Improvement Advice")
 
-        api_key = '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'
+        # api_key = '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'
         # openai.api_key = st.secrets[api_key] # Store API key in .streamlit/secrets.toml
-        openai.api_key = api_key # Store API key in .streamlit/secrets.toml
-        
+        # openai.api_key = api_key # Store API key in .streamlit/secrets.toml
+        openai.api_key = st.secrets["OPENAI_API_KEY"]
+
         #Prepare insights from sections 1-7
         context = f"""
         Color stats White: {overall_wr_white}
