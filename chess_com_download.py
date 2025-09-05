@@ -244,6 +244,10 @@ def download_data_chess_com(chesscom_user_id = 'jay_fh', start_month = 3, last_m
             game_url = url+x
             # print (game_url)
             response = httpx.get(game_url, timeout=None)
+            headers = {
+                "User-Agent": "MyChessApp/1.0 - chesscomlysis"  # <-- IMPORTANT
+            }
+            response = httpx.get(game_url, headers=headers, timeout=30)
             
             # print (str(response.status_code))
             if response.status_code == 200:
@@ -316,23 +320,13 @@ def download_data_chess_com(chesscom_user_id = 'jay_fh', start_month = 3, last_m
 
 
 def pre_analysis_chessgame(row, chesscom_user_id= 'jay_fh',user_timezone=timezone('Asia/Jakarta')):
-    
-
-    # start_data_transform
-
+   
     row['created_date'] = pd.to_datetime(row['created_date'], format='%Y.%m.%d')
     # row['created_week'] = row['created_date'].dt.isocalendar().week
     row['created_week'] = row['created_date'].dt.strftime('%Y-W%U')  # %U is week number (Sunday as first day)
     row['start_time_dtformat'] = pd.to_datetime(row['start_time'])
     row['end_time_dtformat'] = pd.to_datetime(row['end_time'])
     row['created_datetime'] = pd.to_datetime(row['created_date'].astype(str) + ' ' + row['start_time'],format='%Y-%m-%d %H:%M:%S')
-    
-    # row['local_datetime'] = (
-    # row['created_datetime']                # your datetime column name
-    # .dt.tz_localize('UTC')               # mark as UTC
-    # .dt.tz_convert(local_timezone)              # convert to user's timezone
-    # .dt.strftime('%Y-%m-%d %H:%M:%S')    # format as string
-    # )
     
     if row['created_datetime'].dt.tz is None:
         # Naive datetime → localize first
@@ -345,9 +339,7 @@ def pre_analysis_chessgame(row, chesscom_user_id= 'jay_fh',user_timezone=timezon
         # Already tz-aware → just convert
         row['local_datetime'] = row['created_datetime'].dt.tz_convert(user_timezone)
 
-    # Remove timezone info but keep local time
-    # df['local_datetime'] = df['local_datetime'].dt.tz_localize(None)
-
+    
     row['white_elo'] = row['white_elo'].astype(int)
     row['black_elo'] = row['black_elo'].astype(int)
     row['winner_side'] = 'empty'
@@ -397,6 +389,7 @@ def pre_analysis_chessgame(row, chesscom_user_id= 'jay_fh',user_timezone=timezon
     row['termination_category'] = row.apply(categorize_termination, username=chesscom_user_id, axis=1) 
     row['termination_type'] = row['termination_category'].apply(lambda x: x.split()[-1])
     row['simplified_opening'] = row['opening_name'].apply(simplify_opening)
+    # 
  
     # df['created_date'].astype(str)
 
@@ -595,6 +588,10 @@ def insert_to_supabase(games_data, batch_size=50):
             print(f"Error inserting batch {i//batch_size + 1}: {str(e)}")
     
     return total_inserted
+
+def user_download_data(df):
+    df_games = df.copy()
+      
 
 # Load the data from the text file
 
