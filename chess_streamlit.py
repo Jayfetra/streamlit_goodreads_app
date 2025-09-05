@@ -139,7 +139,7 @@ Enter your Chess.com username below to see your performance metrics.
 st.markdown(
     """
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNXJYXQBY4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
