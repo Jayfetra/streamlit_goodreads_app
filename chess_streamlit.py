@@ -199,32 +199,15 @@ with st.sidebar:
     st.subheader("📩 Contact Me")
 
     contact_form = """
-    <form id="contact-form">
+    <form action="https://formspree.io/f/mgvlprpa" method="POST" target="_blank">
         <label for="message">Enter your advice:</label><br>
         <textarea name="message" rows="4" required style="width: 100%; padding: 6px; margin-bottom: 8px;"></textarea><br>
         <button type="submit" style="background-color:#4CAF50; color:white; padding:8px 16px; border:none; border-radius:4px; cursor:pointer;">
             Send
         </button>
     </form>
-    <p id="form-status" style="color: lightgreen; display: none; margin-top: 5px;">✅ Thank you for your feedback!</p>
-
-    <script>
-    const form = document.getElementById("contact-form");
-    form.addEventListener("submit", async function(event) {
-        event.preventDefault(); // Prevent redirect
-        let data = new FormData(form);
-        let response = await fetch("https://formspree.io/f/mgvlprpa", {
-            method: "POST",
-            body: data,
-            headers: { 'Accept': 'application/json' }
-        });
-        if (response.ok) {
-            document.getElementById("form-status").style.display = "block";
-            form.reset(); // clear textarea
-        }
-    });
-    </script>
     """
+
 
     st.markdown(contact_form, unsafe_allow_html=True)
 
