@@ -1,4 +1,6 @@
 .envrc
 .direnv/
 .mypy_cache/
+.streamlit/secrets.toml
+.others.txt
 .streamlit/*
