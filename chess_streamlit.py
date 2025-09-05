@@ -1,4 +1,5 @@
 import streamlit as st
+
 import pandas as pd
 import plotly.express as px
 from datetime import date, datetime, timedelta
@@ -81,6 +82,17 @@ def styled_chart(fig, caption=""):
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ------------------------------
+
+#hide github link and others
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;} /* Hide the hamburger menu */
+    footer {visibility: hidden;}   /* Hide Streamlit footer */
+    header {visibility: hidden;}   /* Hide Streamlit header */
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 
 if not hasattr(app_session.AppSession, "_scriptrunner"):
     app_session.AppSession._scriptrunner = None
