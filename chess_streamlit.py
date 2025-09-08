@@ -1,4 +1,11 @@
 import streamlit as st
+# Set page config
+st.set_page_config(
+    page_title="Chess.com Game Analyzer",
+    page_icon="♟️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 import pandas as pd
 import plotly.express as px
@@ -98,13 +105,7 @@ if not hasattr(app_session.AppSession, "_scriptrunner"):
     app_session.AppSession._scriptrunner = None
 
 
-# Set page config
-st.set_page_config(
-    page_title="Chess.com Game Analyzer",
-    page_icon="♟️",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+
 
 # Custom CSS for styling
 st.markdown("""
@@ -237,26 +238,32 @@ elif analyze_button and not chesscom_user_id:
 # Only show analysis if user has clicked the analyze button
 if st.session_state.analyze_clicked and chesscom_user_id:
 
-    # Load data
 
-    # df_chess_game = download_data_chess_com('jay_fh',3,6,2025)
+    # Load data
     start_date_month = start_date.month
     end_date_month = start_date.month
-    df_chess_game = download_data_chess_com(chesscom_user_id,start_date_month ,end_date_month,2025)
-    
-    # games_data = prepare_game_data(df_chess_game)
-    # total_inserted = insert_to_supabase(games_data)
-    # print(f"\nSuccessfully inserted {total_inserted} out of {len(df_chess_game)} games")
-    df_source = pre_analysis_chessgame(df_chess_game, chesscom_user_id,user_timezone)
 
     
-    # Get the TimeControl values that appear more than 20 times
-    # popular_timecontrols = timecontrol_counts[timecontrol_counts > 50].index
-    # df = df[df['TimeControl'].isin(popular_timecontrols)].copy()
+
+    with st.spinner("Fetching and analyzing your games..."):
+        # progress_bar = st.progress(0)
+        df_chess_game = download_data_chess_com(chesscom_user_id,start_date_month ,end_date_month,2025)
+        # progress_bar = st.progress(50)
+        df_source = pre_analysis_chessgame(df_chess_game, chesscom_user_id,user_timezone)
+        # progress_bar = st.progress(100)
 
     if df_source.empty:
         st.warning("No games found for this user. Please check the usersname and try again.")
         st.stop()
+
+    st.success("Analysis complete!")
+
+    # placeholder = st.empty()  # create placeholder
+    # with placeholder:
+    #     st.success("Analysis complete!")
+
+    # time.sleep(3)  # wait 3 seconds
+    # placeholder.empty()  # clear the message
 
     # Main content
 
