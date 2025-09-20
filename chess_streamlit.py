@@ -581,8 +581,14 @@ if st.session_state.analyze_clicked and chesscom_user_id:
         {context}
         """
 
+        api_key = 'OPENAI_API_KEY=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'
         try:
             client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        except:
+            client = OpenAI(api_key=api_key)
+
+        try:
+            # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
             
             response = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -843,9 +849,15 @@ if st.session_state.analyze_clicked and chesscom_user_id:
         {context}
         """
 
+        api_key = 'OPENAI_API_KEY=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'
+        try:
+            client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        except:
+            client = OpenAI(api_key=api_key)
+
         try:
 
-            client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+            # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
             response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
