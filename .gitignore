@@ -2,6 +2,7 @@
 .direnv/
 .mypy_cache/
 .streamlit/secrets.toml
+others.txt
 .others.txt
 .streamlit/*
 .env
