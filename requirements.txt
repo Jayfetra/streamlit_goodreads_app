@@ -19,3 +19,4 @@ matplotlib
 pymysql
 supabase
 openpyxl
+dotenv
