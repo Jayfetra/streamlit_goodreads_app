@@ -4,3 +4,4 @@
 .streamlit/secrets.toml
 .others.txt
 .streamlit/*
+.env

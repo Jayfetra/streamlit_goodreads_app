@@ -18,6 +18,7 @@ import time
 import chess
 import chess.pgn
 import io
+import os
 import pprint
 import openai
 from openai import OpenAI
@@ -27,6 +28,7 @@ import chess_com_download
 from streamlit_javascript import st_javascript
 from pytz import timezone
 from dateutil.relativedelta import relativedelta
+from dotenv import load_dotenv
 
 from chess_com_download import test_function_test
 from chess_com_download import opening_database
@@ -100,6 +102,7 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+load_dotenv()
 
 if not hasattr(app_session.AppSession, "_scriptrunner"):
     app_session.AppSession._scriptrunner = None
@@ -555,10 +558,8 @@ if st.session_state.analyze_clicked and chesscom_user_id:
         st.markdown("---")
         #8th section - Personalized ChatGPT Advice
 
-
         st.header("8. AI-Powered Chess Improvement Advice")
         # https://platform.openai.com/settings/organization/admin-keys
-        openai.api_key = st.secrets["OPENAI_API_KEY"]
 
         #Prepare insights from sections 1-7
         context = f"""
@@ -581,7 +582,8 @@ if st.session_state.analyze_clicked and chesscom_user_id:
         """
 
         try:
-            client = OpenAI(api_key=openai.api_key)
+            client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+            
             response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -818,8 +820,8 @@ if st.session_state.analyze_clicked and chesscom_user_id:
 
         st.header("8. AI-Powered Chess Improvement Advice")
         # https://platform.openai.com/settings/organization/admin-keys
-        openai.api_key = st.secrets["OPENAI_API_KEY"]
-
+        # openai.api_key = st.secrets["OPENAI_API_KEY"]
+        # API_KEY = os.environ["OPENAI_API_KEY"]
 
         #Prepare insights from sections 1-7
         
@@ -842,7 +844,8 @@ if st.session_state.analyze_clicked and chesscom_user_id:
         """
 
         try:
-            client = OpenAI(api_key=openai.api_key)
+
+            client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
             response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[

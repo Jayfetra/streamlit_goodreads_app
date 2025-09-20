@@ -10,3 +10,6 @@
 
 email: chesslysis.feedback@gmail.com
 https://formspree.io/f/mgvlprpa
+
+
+export OPENAI_API_KEY="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"
