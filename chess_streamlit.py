@@ -150,8 +150,8 @@ st.markdown("""
 #endregion  
 
 #region load dotenv and initial UI setup and timezeone and api key openai
-# if "OPENAI_API_KEY" in os.environ:
-    # del os.environ["OPENAI_API_KEY"]
+if "OPENAI_API_KEY" in os.environ:
+    del os.environ["OPENAI_API_KEY"]
 
 load_dotenv()
 
@@ -509,14 +509,18 @@ def create_stats_tab_overview(df,username):
     """
 
     try:
-        open_api_key_string = "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"
 
-        # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        client = OpenAI(api_key=open_api_key_string)
+        api_key_chatgpt = os.getenv("OPENAI_API_KEY")
+        if not api_key_chatgpt:
+            raise RuntimeError("OPENAI_API_KEY not found in environment. Please set it in .env or system env.")
+
+        client = OpenAI(api_key=api_key_chatgpt)
 
         # print (os.getenv("OPENAI_API_KEY"))
         if client is None:
+            st.stop()
             raise RuntimeError("OpenAI API key not configured")
+
 
         response = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -777,10 +781,12 @@ def create_stats_tab_overview_color(df,username,color):
 
     try:
 
-        open_api_key_string = "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"
 
-        # client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        client = OpenAI(api_key=open_api_key_string)
+        api_key_chatgpt = os.getenv("OPENAI_API_KEY")
+        if not api_key_chatgpt:
+            raise RuntimeError("OPENAI_API_KEY not found in environment. Please set it in .env or system env.")
+
+        client = OpenAI(api_key=api_key_chatgpt)
 
         response = client.chat.completions.create(
         model="gpt-4o-mini",
