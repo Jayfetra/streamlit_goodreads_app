@@ -6,3 +6,7 @@ others.txt
 .others.txt
 .streamlit/*
 .env
+.venv
+# Ignore virtual environment
+venv/
+.venv/
