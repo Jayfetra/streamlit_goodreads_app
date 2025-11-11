@@ -106,10 +106,11 @@ AC5: No secrets in the repo; `.env` is included in `.gitignore` and an `.env.exa
 - Open a draft PR early for larger changes — mark it as `Draft` in GitHub.
 - Do not push directly to `master`/`main`. Use PRs and pull requests to merge.
 - Add tests or smoke-test steps for any behavior you change.
+- Inform 1 step at a time, and focus on the current task before moving on to the next one. Keep the to do list into maximum 4 task on every chat. 
 
 ## 14 — Open Questions / Decisions
-- Do we prefer `conda` or stick to `venv` for cross-developer consistency? (Recommendation: conda on Windows.)
-- Do we want CI (GitHub Actions) to run smoke tests on PRs? (Nice to have.)
+- Do we prefer `conda` or stick to `venv` for cross-developer consistency? (Recommendation: conda on Windows.) -> we prefer to use conda. I already run "conda activate myenv" this code to activate the envoronment
+- Do we want CI (GitHub Actions) to run smoke tests on PRs? (Nice to have.) -> I don't know anything about CI, but if you think it helps, then yes
 
 ## 15 — Next Steps & Owner
 - Owner: Jayfetra

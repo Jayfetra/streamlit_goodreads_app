@@ -39,23 +39,17 @@ from chess_com_download import insert_to_supabase
 #endregion
 
 #region stateinitilize
+from app.utils import (
+    safe_percent,
+    init_session_state,
+    get_openai_client,
+    generate_advice_from_context,
+)
+from app.ui import styled_chart, hide_streamlit_style
 
-if "analyze_clicked" not in st.session_state:
-    st.session_state.analyze_clicked = False
 
-if "analysis_in_progress" not in st.session_state:
-    st.session_state.analysis_in_progress = False
-
-if "analysis_done" not in st.session_state:
-    st.session_state.analysis_done = False
-
-# place to hold data/results
-if "df_chess_game" not in st.session_state:
-    st.session_state.df_chess_game = None
-if "df_source" not in st.session_state:
-    st.session_state.df_source = None
-if "analysis_error" not in st.session_state:
-    st.session_state.analysis_error = None
+# initialize session state
+init_session_state()
 
 #endregion
 
@@ -201,9 +195,7 @@ user_timezone = pytz.timezone(st.session_state.user_timezone)
 
 #endregion
 
-# Initialize session state for form submission
-if 'analyze_clicked' not in st.session_state:
-    st.session_state.analyze_clicked = False
+# (session state already initialized above via init_session_state)
 
 # Modify your date range filter to use local time
 
@@ -508,35 +500,13 @@ def create_stats_tab_overview(df,username):
     {context}
     """
 
-    try:
-
-        api_key_chatgpt = os.getenv("OPENAI_API_KEY")
-        if not api_key_chatgpt:
-            raise RuntimeError("OPENAI_API_KEY not found in environment. Please set it in .env or system env.")
-
-        client = OpenAI(api_key=api_key_chatgpt)
-
-        # print (os.getenv("OPENAI_API_KEY"))
-        if client is None:
-            st.stop()
-            raise RuntimeError("OpenAI API key not configured")
-
-
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": 
-                "You are a helpful chess coach analyzing player statistics."},
-                {"role": "user", "content": prompt},
-            ],
-            max_tokens=400,
-        )
-
-        advice = response.choices[0].message.content
+    # Generate AI advice if API key configured
+    advice_text = generate_advice_from_context(context)
+    if advice_text is None:
+        st.warning("OpenAI API key not configured or error generating AI advice. Skipping AI section.")
+    else:
         st.subheader("Your Personalized Advice:")
-        st.write(advice)
-    except Exception as e:
-        st.error(f"Error generating advice: {e}")
+        st.write(advice_text)
 
     # with st.spinner("Analyzing your games..."):
         
