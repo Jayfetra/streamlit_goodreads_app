@@ -572,8 +572,15 @@ def prepare_game_data(df):
 
 def insert_to_supabase(games_data, batch_size=50):
     """Insert games to Supabase in batches"""
-    SUPABASE_URL = "https://rqzeprcvhfhlldsfmkhx.supabase.co"
-    SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxemVwcmN2aGZobGxkc2Zta2h4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNjg4MjksImV4cCI6MjA2NTY0NDgyOX0.PZC3o_Rw3QxwQs2-ddUBX4bI5Ue_kfJVQWvFlSiIm3I"
+    # Read Supabase credentials from environment — do NOT hardcode secrets in source.
+    SUPABASE_URL = os.getenv("SUPABASE_URL")
+    SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+    if not SUPABASE_URL or not SUPABASE_KEY:
+        raise RuntimeError(
+            "SUPABASE_URL and SUPABASE_KEY must be set in environment variables to insert to Supabase."
+        )
+
     supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
     total_inserted = 0
@@ -582,7 +589,12 @@ def insert_to_supabase(games_data, batch_size=50):
         batch = games_data[i:i + batch_size]
         try:
             response = supabase.table("chess_games").insert(batch).execute()
-            total_inserted += len(response.data)
+            # response.data can be None or a list depending on the client/version
+            if hasattr(response, 'data') and response.data:
+                try:
+                    total_inserted += len(response.data)
+                except Exception:
+                    total_inserted += 0
             # print(f"Inserted batch {i//batch_size + 1}: {len(response.data)} games")
         except Exception as e:
             print(f"Error inserting batch {i//batch_size + 1}: {str(e)}")

@@ -15,8 +15,8 @@ requests
 streamlit-javascript
 streamlit-js-eval
 pytz
-matplotlib
+python-dotenv
 pymysql
 supabase
 openpyxl
-dotenv
+python-dotenv
